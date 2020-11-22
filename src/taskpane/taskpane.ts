@@ -11,6 +11,7 @@ import "../../assets/icon-80.png";
 const smileys = ["😀","😆","😅","🙂","😄","😜","🙃"];
 
 Office.onReady(info => {
+  console.log("Start 🍾")
   if (info.host === Office.HostType.Outlook) {
     document.getElementById("run").onclick = run;
   }
