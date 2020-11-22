@@ -14,6 +14,7 @@ Office.onReady(info => {
   console.log("Start 🍾")
   if (info.host === Office.HostType.Outlook) {
     document.getElementById("run").onclick = run;
+    document.getElementById("run-remove").onclick = runRemove;
   }
 });
 
@@ -40,6 +41,18 @@ export async function run() {
       });
 
       Office.context.mailbox.item.body.setAsync(newLines.join("</div>"), { coercionType: Office.CoercionType.Html });
+    }
+  });
+}
+
+
+
+export async function runRemove() {
+  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, asyncResult => {
+    if (asyncResult.status.toString() === "succeeded") {
+      const lines = asyncResult.value ;
+    
+      Office.context.mailbox.item.body.setAsync(lines.replace(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g,''), { coercionType: Office.CoercionType.Html });
     }
   });
 }
